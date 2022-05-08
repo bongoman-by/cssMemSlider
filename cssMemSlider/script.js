@@ -1,5 +1,5 @@
 const carouselElem = document.querySelector(".carousel");
-const width = window.getComputedStyle(
+let width = window.getComputedStyle(
   carouselElem.querySelector(".carousel-inner")
 ).width;
 const slides = carouselElem.querySelectorAll(".carousel-item");
@@ -37,6 +37,27 @@ function Carousel() {
   description.addEventListener("mouseout", (e) =>
     document.body.classList.remove("mouse-press")
   );
+
+  carouselElem.addEventListener("mousemove", (e) => {
+    if (e.target === description) {
+      e.preventDefault();
+      return;
+    }
+    document.body.style.setProperty(
+      "--xy",
+      e.clientX + "px " + e.clientY + "px"
+    );
+    document.body.classList.add("mouse-move");
+  });
+  carouselElem.addEventListener("mouseout", (e) =>
+    document.body.classList.remove("mouse-move")
+  );
+  carouselElem.addEventListener("mousedown", (e) =>
+    document.body.classList.remove("mouse-move")
+  );
+  carouselElem.addEventListener("mouseup", (e) =>
+    document.body.classList.add("mouse-move")
+  );
 }
 
 function getSlide(e) {
@@ -51,5 +72,12 @@ function getSlide(e) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  Carousel();
+});
+
+window.addEventListener("resize", () => {
+  width = window.getComputedStyle(
+    carouselElem.querySelector(".carousel-inner")
+  ).width;
   Carousel();
 });
