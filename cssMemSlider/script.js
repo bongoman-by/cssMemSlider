@@ -6,6 +6,7 @@ const slides = carouselElem.querySelectorAll(".carousel-item");
 const slidesField = carouselElem.querySelector(".carousel-slides");
 slidesField.style.width = 100 * slides.length + "%";
 const dots = carouselElem.querySelectorAll(".carousel-indicators li");
+const description = carouselElem.querySelector("h1");
 
 function Carousel() {
   slides.forEach((slide) => {
@@ -14,7 +15,28 @@ function Carousel() {
 
   dots.forEach((dot) => {
     dot.addEventListener("click", getSlide);
+    dot.addEventListener("mousedown", (e) => {
+      document.body.style.setProperty(
+        "--xy",
+        e.clientX + "px " + e.clientY + "px"
+      );
+      document.body.classList.add("mouse-press");
+    });
+    dot.addEventListener("mouseup", (e) =>
+      document.body.classList.remove("mouse-press")
+    );
   });
+
+  description.addEventListener("mousemove", (e) => {
+    document.body.style.setProperty(
+      "--xy",
+      e.clientX + "px " + e.clientY + "px"
+    );
+    document.body.classList.add("mouse-press");
+  });
+  description.addEventListener("mouseout", (e) =>
+    document.body.classList.remove("mouse-press")
+  );
 }
 
 function getSlide(e) {

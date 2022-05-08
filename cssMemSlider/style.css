@@ -6,8 +6,24 @@
   --main-bg-color: rgb(44, 45, 45);
   --primary-color: rgb(241, 245, 245);
   --indicator-color: rgb(22, 138, 239);
-  --press-color: rgb(137, 133, 22);
+  --mouse-color: rgb(157, 168, 42);
+}
+
+body {
+  --xy: -150px -150px;
   background-color: var(--main-bg-color);
+  height: 10000px;
+  animation: background 2s;
+}
+
+body.mouse-press {
+  background: radial-gradient(
+      circle closest-side at var(--xy),
+      var(--mouse-color) 15px,
+      var(--main-bg-color) 15px
+    )
+    no-repeat;
+  animation: background 2s;
 }
 
 .container {
@@ -40,7 +56,6 @@
 .carousel-slides {
   height: 100%;
   display: flex;
-  /* transition-duration: 1.2s; */
   transition: 1.2s cubic-bezier(0, 0.5, 0.8, 1);
 }
 .carousel-item {
@@ -63,6 +78,7 @@
 h1 {
   color: var(--primary-color);
   font-size: 16px;
+  cursor: pointer;
 }
 
 .carousel-indicators {
@@ -70,18 +86,30 @@ h1 {
   justify-content: center;
   list-style: none;
 }
+
 .carousel-indicators li {
   box-sizing: content-box;
   width: 7px;
   height: 7px;
-  margin-right: 4px;
-  margin-left: 4px;
+  margin-right: 6px;
+  margin-left: 6px;
   cursor: pointer;
   border-radius: 100%;
   transition: opacity 0.6s ease;
   border: 2px solid var(--indicator-color);
   background-color: var(--indicator-color);
+  position: relative;
 }
+
+.carousel-indicators li::before {
+  content: "";
+  position: absolute;
+  width: 21px;
+  height: 25px;
+  left: -8px;
+  top: -9px;
+}
+
 .carousel-indicators .active {
   border: 2px solid var(--primary-color);
   background-color: transparent;
