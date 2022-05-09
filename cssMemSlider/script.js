@@ -7,6 +7,7 @@ const slidesField = carouselElem.querySelector(".carousel-slides");
 slidesField.style.width = 100 * slides.length + "%";
 const dots = carouselElem.querySelectorAll(".carousel-indicators li");
 const description = carouselElem.querySelector("h1");
+let slideIndex = 0;
 
 function Carousel() {
   slides.forEach((slide) => {
@@ -40,7 +41,6 @@ function Carousel() {
 
   carouselElem.addEventListener("mousemove", (e) => {
     if (e.target === description) {
-      e.preventDefault();
       return;
     }
     document.body.style.setProperty(
@@ -55,15 +55,19 @@ function Carousel() {
   carouselElem.addEventListener("mousedown", (e) =>
     document.body.classList.remove("mouse-move")
   );
-  carouselElem.addEventListener("mouseup", (e) =>
-    document.body.classList.add("mouse-move")
-  );
+  carouselElem.addEventListener("mouseup", (e) => {
+    if (e.target === description) {
+      return;
+    }
+    document.body.classList.add("mouse-move");
+  });
 }
 
 function getSlide(e) {
   const slideTo = e.target.getAttribute("data-slide-to");
+  description.textContent = e.target.getAttribute("data-description");
 
-  slideIndex = slideTo;
+  slideIndex = +slideTo;
   offset = +width.replace(/\D/g, "") * slideTo;
 
   slidesField.style.transform = `translateX(-${offset}px)`;
@@ -79,5 +83,7 @@ window.addEventListener("resize", () => {
   width = window.getComputedStyle(
     carouselElem.querySelector(".carousel-inner")
   ).width;
+  offset = +width.replace(/\D/g, "") * slideIndex;
+  slidesField.style.transform = `translateX(-${offset}px)`;
   Carousel();
 });
