@@ -36,6 +36,11 @@ body.mouse-press {
   font-family: "Roboto", sans-serif;
 }
 
+h1 {
+  color: var(--indicator-color);
+  text-align: center;
+}
+
 .carousel {
   display: block;
   margin: 0 auto;
@@ -78,12 +83,27 @@ body.mouse-press {
   margin-bottom: 50px;
 }
 
-h1 {
+h2 {
   color: var(--primary-color);
   font-size: 16px;
   cursor: pointer;
+  animation-name: opacity;
+  animation-duration: 2s;
 }
 
+span {
+  animation-name: opacity;
+  animation-duration: 4s;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .carousel-indicators {
   display: flex;
   justify-content: center;
@@ -91,12 +111,18 @@ h1 {
 }
 
 .carousel-indicators li {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.radio {
   box-sizing: content-box;
   width: 7px;
   height: 7px;
-  margin-right: 6px;
-  margin-left: 6px;
-  cursor: pointer;
   border-radius: 100%;
   transition: opacity 0.6s ease;
   border: 2px solid var(--indicator-color);
@@ -104,21 +130,17 @@ h1 {
   position: relative;
 }
 
-.carousel-indicators li::before {
-  content: "";
-  position: absolute;
-  width: 21px;
-  height: 25px;
-  left: -8px;
-  top: -9px;
-}
-
-.carousel-indicators .active {
+.radio.active {
   border: 2px solid var(--primary-color);
   background-color: transparent;
 }
 
-.carousel-indicators li:hover {
+.radio:hover {
+  border: 2px solid var(--primary-color);
+  background-color: var(--primary-color);
+}
+
+.radio.hover {
   border: 2px solid var(--primary-color);
   background-color: var(--primary-color);
 }
