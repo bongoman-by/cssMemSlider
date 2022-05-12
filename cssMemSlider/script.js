@@ -2,13 +2,13 @@ const carouselElem = document.querySelector(".carousel");
 let width = window.getComputedStyle(
   carouselElem.querySelector(".carousel-inner")
 ).width;
+let slideIndex = 0;
 const slides = carouselElem.querySelectorAll(".carousel-item");
 const slidesField = carouselElem.querySelector(".carousel-slides");
 slidesField.style.width = 100 * slides.length + "%";
 const dots = carouselElem.querySelectorAll(".carousel-indicators li");
 const radios = carouselElem.querySelectorAll(".radio");
 const h2Elem = carouselElem.querySelector("h2");
-let slideIndex = 0;
 
 function carousel() {
   slides.forEach((slide) => {
